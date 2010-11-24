@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="VocalPractice">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="VocalPractice.classpath">
+        <pathelement location="bin"/>
+    </path>
+	
+    <target name="init">
+        <mkdir dir="bin"/>
+    	<copydir src="img" dest="bin"/>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" srcdir="src" destdir="bin" source="${source}" target="${target}">
+            <classpath refid="VocalPractice.classpath"/>
+        </javac>
+    </target>
+	<target name="jar" depends="build">
+		<jar destfile="VocalPractice.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="VocalPractice"/>
+			</manifest>
+		</jar>
+	</target>
+    <target name="VocalPractice">
+        <java classname="VocalPractice" failonerror="true" fork="yes">
+            <jvmarg line="-Dapple.laf.useScreenMenuBar=true"/>
+            <classpath refid="VocalPractice.classpath"/>
+        </java>
+    </target>
+</project>
